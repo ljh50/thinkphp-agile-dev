@@ -15,7 +15,7 @@ define('INSTALL_APP_PATH', realpath('./') . '/');
 
 return array(
 
-    'ORIGINAL_TABLE_PREFIX' => 'uctoo_', //默认表前缀
+    'ORIGINAL_TABLE_PREFIX' => 'think_', //默认表前缀
 
     /* 模板相关配置 */
     'TMPL_PARSE_STRING' => array(
@@ -25,16 +25,16 @@ return array(
         '__CSS__' => __ROOT__ . '/Public/' . MODULE_NAME . '/css',
         '__JS__' => __ROOT__ . '/Public/' . MODULE_NAME . '/js',
         '__ZUI__'=>__ROOT__.'/Public/zui',
-        '__NAME__'=>'UCToo',
-        '__COMPANY__'=>'深圳优创智投科技有限公司',
-        '__WEBSITE__'=>'www.uctoo.cn',
-        '__COMPANY_WEBSITE__'=>'www.uctoo.com',
-        '__VERSION__'=>'0.6.0',
+        '__NAME__'=>'thinkphp-agile-dev',
+        '__COMPANY__'=>'thinkphp-agile-dev',
+        '__WEBSITE__'=>'thinkphp-agile-dev',
+        '__COMPANY_WEBSITE__'=>'thinkphp-agile-dev',
+        '__VERSION__'=>'0.01',
     ),
     /* URL配置 */
     'URL_MODEL' => 3, //URL模式
     'DEFAULT_THEME' =>  'default',  // 默认模板主题名称
-    'SESSION_PREFIX' => 'uctoo', //session前缀
-    'COOKIE_PREFIX' => 'uctoo_', // Cookie前缀 避免冲突
+    'SESSION_PREFIX' => 'think', //session前缀
+    'COOKIE_PREFIX' => 'think', // Cookie前缀 避免冲突
 
 );
