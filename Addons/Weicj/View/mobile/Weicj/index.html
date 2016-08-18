@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<title>{$info.title}</title>
+		<meta charset="utf-8">
+		<meta content="" name="description">
+		<meta content="" name="keywords">
+		<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+		<meta content="telephone=no, address=no" name="format-detection">
+		<link href="{:ADDON_PUBLIC_PATH}/css/main.css?v=4" rel="stylesheet" />
+		<script type="text/javascript">
+		(function(){
+			var phoneWidth = parseInt(window.screen.width),
+				phoneScale = phoneWidth/640,
+				ua = navigator.userAgent;
+
+			if (/Android (\d+\.\d+)/.test(ua)){
+				var version = parseFloat(RegExp.$1);
+				// andriod 2.3
+				if(version > 2.3){
+					document.write('<meta name="viewport" content="width=640, minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
+				// andriod 2.3以上
+				}else{
+					document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+				}
+				// 其他系统
+			} else {
+				document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+			}
+		})();
+        		var config = {
+			coverUrl:'',
+			swipeCur: 0,
+			swipeDir:'vertical', // 'vertical' // horizontal
+		}
+		</script>
+		<script src="{:ADDON_PUBLIC_PATH}/js/zepto_min.js"></script>
+		<script src="{:ADDON_PUBLIC_PATH}/js/lottery.js"></script>
+		<script src="{:ADDON_PUBLIC_PATH}/js/swipe.js"></script>
+		<script src="{:ADDON_PUBLIC_PATH}/js/player.js"></script>
+		<script src="{:ADDON_PUBLIC_PATH}/js/stackBlur.js"></script>
+		<script src="{:ADDON_PUBLIC_PATH}/js/app.js"></script>
+		
+	</head>
+	<body onselectstart="return true;" ondragstart="return false;">
+		<div class="container">
+			<div class="loading-img"><img src="{:ADDON_PUBLIC_PATH}/images/loading.gif" /></div>
+
+			<div class="swipe" id="swipe">
+				<ul>
+					<notempty name="info.pic1"><li><div style="background-image: url({$info.pic1})"></div></li></notempty>
+					<notempty name="info.pic2"><li><div style="background-image: url({$info.pic2})"></div></li></notempty>
+					<notempty name="info.pic3"><li><div style="background-image: url({$info.pic3})"></div></li></notempty>
+					<notempty name="info.pic4"><li><div style="background-image: url({$info.pic4})"></div></li></notempty>
+					<notempty name="info.pic5"><li><div style="background-image: url({$info.pic5})"></div></li></notempty>
+					<li>
+						<!--带按钮的图片需加上class top/middle/bottom ，位置分别在上中下 -->
+						<div class="bottom" style="background-image: url({$info.pic6})">
+						    <a class="links"  href="{$info.cjurl}"><img src="{$info.clickpic}" /></a>
+						</div>
+					</li>
+				</ul>
+			</div>
+            <div id="musicWrap" class="music_wrap f-hide">
+				<span class="text move hide"></span>
+                <i id="audioBtn" data-src="{$info.trueaudio}" class="btn_music on"></i>
+            </div>
+            
+			<div id="arrowV" class="arrow_v f-hide"><p></p></div>
+
+			<div id="arrowH" class="arrow_h f-hide">
+				<span class="arrow_l"></span>
+				<span class="arrow_r"></span>
+			</div>
+
+			<div class="lottery" id="lottery"></div>
+			<div class="download_mask" id="downloadMask"><i></i></div>
+		</div>
+
+
+        <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"> </script>
+
+        <script>
+            wx.config({
+                debug: false,
+                appId: '{$js_sign['appid']}',
+                timestamp: {$js_sign['timestamp']},
+                nonceStr: '{$js_sign['noncestr']}',
+                signature: '{$js_sign['signature']}',
+                jsApiList: [
+                    // 所有要调用的 API 都要加到这个列表中
+                    'checkJsApi',
+                    'onMenuShareTimeline',
+                    'onMenuShareAppMessage',
+                    'onMenuShareQQ',
+                    'onMenuShareWeibo'
+                ]
+            });
+			
+			    wx.ready(function () {
+      // 在这里调用 API
+
+            wx.onMenuShareTimeline({
+                title: '{$info['title']}', // 分享标题
+                link: '{$share_url}', // 分享链接
+                imgUrl: '{$info['cover']|get_cover_url}', // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+            wx.onMenuShareAppMessage({
+                title: '{$info['title']}', // 分享标题
+                desc: '{$info['intro']}', // 分享描述
+                link: '{$share_url}', // 分享链接
+                imgUrl: '{$info['cover']|get_cover_url}', // 分享图标
+                type: '', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+                    wx.onMenuShareQQ({
+                        title: '{$info['title']}', // 分享标题
+                        desc: '{$info['intro']}', // 分享描述
+                        link: '{$share_url}', // 分享链接
+                        imgUrl: '{$info['cover']|get_cover_url}', // 分享图标
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
+                    });
+                    wx.onMenuShareWeibo({
+                        title: '{$info['title']}', // 分享标题
+                        desc: '{$info['intro']}', // 分享描述
+                        link: '{$share_url}', // 分享链接
+                        imgUrl: '{$info['cover']|get_cover_url}', // 分享图标
+                        success: function () {
+                            // 用户确认分享后执行的回调函数
+                        },
+                        cancel: function () {
+                            // 用户取消分享后执行的回调函数
+                        }
+                    });
+ });
+    wx.error(function (res) {
+      alert(res.errMsg);
+    });
+        </script>
+	</body>
+</html>

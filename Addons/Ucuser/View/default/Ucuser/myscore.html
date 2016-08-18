@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=0;" name="viewport" />
+    <link rel="stylesheet" type="text/css" href="{:ADDON_PUBLIC_PATH}/myscore/asset/css/amazeui2.1.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="{:ADDON_PUBLIC_PATH}/myscore/asset/css/jquery.mobile-1.4.5.min.css">-->
+    <link rel="stylesheet" type="text/css" href="{:ADDON_PUBLIC_PATH}/myscore/asset/css/weui.css">
+    <link rel="stylesheet" type="text/css" href="{:ADDON_PUBLIC_PATH}/myscore/asset/css/style.css">
+    <title>UCToo 5维图</title>
+</head>
+
+<body>
+    <!-- 赋值表单 -->
+    <div id="form_val" style="display:none;">
+        <input type="text" value="{$avgScore1}" id="yz_value">
+        <input type="text" value="{$avgScore2}" id="xs_value">
+        <input type="text" value="{$avgScore3}" id="cf_value">
+        <input type="text" value="{$avgScore4}" id="rp_value">
+        <input type="text" value="{$avgScore5}" id="zl_value">
+
+       <button id="submit_btn" class="submit_bar">确定</button>
+	</div>
+    <input type="hidden" value="{$from_url}" name="from_url" id="from_url">
+    <input type="hidden" value="{$to_url}" name="to_url" id="to_url">
+    <input type="hidden" value="{$help_url}" name="help_url" id="help_url">
+<header><span style="float:left;margin-left:10px;padding:0px 10px;" id="to_home">主页</span><span id="user_name" class="margin-auto">{$to_user.nickname}的5维图</span><span style="float:right;margin-right:10px;padding:0px 10px;" id="to_help">帮助</span></header>
+<div id="user_info_bar">
+    <span class="img"><img src="{$to_user.headimgurl}"></span><p class="text">{$to_user.nickname}</p>
+</div>
+    <!-- <p id="to_show_box"><img src="{:ADDON_PUBLIC_PATH}/myscore/asset/img/show-bg.png"></p> -->
+    <article data-role="page">
+    <!-- tz start -->
+    <span class="yz_input" attr-v="1" style="left:142px;top:143px;"></span>
+    <span class="yz_input" attr-v="2" style="left:142px;top:120px;"></span>
+    <span class="yz_input" attr-v="3" style="left:142px;top:95px;"></span>
+    <span class="yz_input" attr-v="4" style="left:142px;top:72px;"></span>
+    <span class="yz_input" attr-v="5" style="left:142px;top:49px;"></span>
+    <!-- tz end -->
+    <!-- yz start -->
+    <span class="xs_input" attr-v="1" style="left:122px;top:158px;"></span>
+    <span class="xs_input" attr-v="2" style="left:100px;top:151px;"></span>
+    <span class="xs_input" attr-v="3" style="left:76px;top:142px;"></span>
+    <span class="xs_input" attr-v="4" style="left:52px;top:135px;"></span>
+    <span class="xs_input" attr-v="5" style="left:32px;top:128px;"></span>
+    <!-- yz end -->
+    <!-- xs start -->
+    <span class="cf_input" attr-v="1" style="left:128px;top:182px;"></span>
+    <span class="cf_input" attr-v="2" style="left:115px;top:201px;"></span>
+    <span class="cf_input" attr-v="3" style="left:101px;top:221px;"></span>
+    <span class="cf_input" attr-v="4" style="left:88px;top:240px;"></span>
+    <span class="cf_input" attr-v="5" style="left:72px;top:260px;"></span>
+    <!-- xs end -->
+    <!-- rp start -->
+    <span class="rp_input" attr-v="1" style="left:156px;top:182px;"></span>
+    <span class="rp_input" attr-v="2" style="left:169px;top:201px;"></span>
+    <span class="rp_input" attr-v="3" style="left:184px;top:221px;"></span>
+    <span class="rp_input" attr-v="4" style="left:198px;top:240px;"></span>
+    <span class="rp_input" attr-v="5" style="left:212px;top:260px;"></span>
+    <!-- rp end -->
+    <!-- zl start -->
+    <span class="zl_input" attr-v="1" style="left:163px;top:159px;"></span>
+    <span class="zl_input" attr-v="2" style="left:185px;top:151px;"></span>
+    <span class="zl_input" attr-v="3" style="left:208px;top:143px;"></span>
+    <span class="zl_input" attr-v="4" style="left:231px;top:136px;"></span>
+    <span class="zl_input" attr-v="5" style="left:253px;top:130px;"></span>
+    <!-- zl end -->
+    <!-- points start -->
+    <span class="yz_points">{$avgScore1}</span>
+    <span class="xs_points">{$avgScore2}</span>
+    <span class="cf_points">{$avgScore3}</span>
+    <span class="rp_points">{$avgScore4}</span>
+    <span class="zl_points">{$avgScore5}</span>
+    <!-- points end -->
+
+    <div id="main" style="height:345px;"></div>
+        <p id="evaluation_bar"><input type="text" class="am-radius" id="evaluation" name="evaluation" value="" placeholder=""/></p>
+    <div class="submit_bar">
+        <button style="" class="weui_btn weui_btn_primary" id="to_show" onclick="alert('请点击右上角的分享按钮')">转发给朋友打分</button>
+        <button style="" class="weui_btn weui_btn_primary" id="go_to_points">给{$to_user.nickname}打分</button>
+    </div>
+    <!-- 打分人 start -->
+    <div class="am-tabs" data-am-tabs>
+          <ul class="am-tabs-nav">
+            <li class="am-active"><a href="#tab1">打分列表</a></li>
+            <li><a href="#tab2">全球排名</a></li>
+        </ul>
+
+        <div class="am-tabs-bd" style="border:none;">
+            <div class="am-tab-panel am-fade am-in am-active" id="tab1">
+                <div id="point_bar">
+                    <ul>
+                        <volist name="myscore" id="vo" empty="暂时没有数据" >
+                            <li><span class="img"><img src="{$vo.from_headimgurl}"></span><p class="text"><a class="a_link" attr-url="{:addons_url ( 'Ucuser://Ucuser/showscore',array('id'=>$vo['id']) )}">{$vo.from_name}的打分是：颜{$vo.score1},学{$vo.score2},财{$vo.score3},品{$vo.score4},战{$vo.score5}</a></p></li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+            <div class="am-tab-panel am-fade" id="tab2">
+                <div id="point_bar1">
+                    <p style="color:#C00;font-size:12px;">截至2015年12月31日，全球排名前5的用户可获得www.uctoo.com一年钻石会员资格。</p>
+                    <ul>
+
+                        <if condition="$myrank lt 5 ">
+                            <volist name="totalscorelist" id="vo" key="k" empty="暂时没有数据" >
+                                <li>第{$k}名<span class="width_10"></span>{$vo.to_name}<span class="img"><img src="{$vo.to_headimgurl}"></span><p class="text">总得分是：{$vo.totalscore}</p></li>
+                            </volist>
+                                <li style="padding-left:10px;">……</li>
+
+                            
+                            <else />
+                            <volist name="totalscorelist" id="vo" key="k" empty="暂时没有数据" >
+                                <li>第{$k}名<span class="width_10"></span>{$vo.to_name}<span class="img"><img src="{$vo.to_headimgurl}"></span><p class="text">总得分是：{$vo.totalscore}</p></li>
+                            </volist>
+                            <li>……</li>
+                            <li>第{$myrank}名<span class="img"><img src="{$mytotalscore.to_headimgurl}">{$mytotalscore.to_name}</span><p class="text">总得分是：{$mytotalscore.totalscore}</p></li>
+                            <li style="padding-left:10px;">……</li>
+                        </if>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 打分人 end -->
+</article>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="{:ADDON_PUBLIC_PATH}/myscore/asset/js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="{:ADDON_PUBLIC_PATH}/myscore/asset/js/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="{:ADDON_PUBLIC_PATH}/myscore/asset/js/amazeui2.1.min.js"></script>
+<script src="{:ADDON_PUBLIC_PATH}/myscore/example/www/js/echarts.js"></script>
+<script type="text/javascript" src="{:ADDON_PUBLIC_PATH}/myscore/asset/js/main.js"></script>
+
+    <script>
+        wx.config({
+            debug: false,
+            appId: '{$js_sign['appid']}',
+            timestamp: {$js_sign['timestamp']},
+            nonceStr: '{$js_sign['noncestr']}',
+            signature: '{$js_sign['signature']}',
+            jsApiList: [
+                // 所有要调用的 API 都要加到这个列表中
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'openProductSpecificView',
+                'addCard',
+                'chooseCard',
+                'openCard'
+            ]
+        });
+        wx.ready(function () {
+            // 在这里调用 API
+            //朋友圈
+            wx.onMenuShareTimeline({
+                title: '{$sharedata.title}:'+'{$sharedata.desc}',
+                desc: '{$sharedata.desc}',
+                link: '{$sharedata.link}',
+                imgUrl: '{$sharedata.imgUrl}',
+                trigger: function (res) {
+                       //alert('用户点击并朋友圈');
+                },
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                       //alert('Timeline分享成功');
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                       //alert('您取消了分享Timeline');
+                }
+            });
+            wx.onMenuShareAppMessage({
+                title: '{$sharedata.title}',
+                desc: '{$sharedata.desc}',
+                link: '{$sharedata.link}',
+                imgUrl: '{$sharedata.imgUrl}',
+                type: '', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                        //alert('分享给朋友分享成功');
+                },
+                cancel: function () {
+                         //alert('您取消了分享给朋友');
+                }
+            });
+
+        });
+        wx.error(function (res) {
+            //alert(res.errMsg);
+        });
+
+
+        $('.a_link').on("tap",function(){
+            var link = $(this).attr('attr-url');
+            //alert(link)
+            window.location.href = link;
+        });
+
+        $('#go_to_points').on('tap',function(){
+            var url = "{$sharedata.link}";
+            window.location.href = url;
+        });
+
+    </script>
+    <!--end 微信JSSDK-->
+
+</body>
+</html>

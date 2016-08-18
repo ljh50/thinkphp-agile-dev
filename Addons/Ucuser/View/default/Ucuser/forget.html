@@ -1,0 +1,120 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>忘记密码</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" type="text/css" href="__PUBLIC__/hotel/static/css/forget.css">
+</head>
+<body>
+    <div class="header_box">
+      <div class="header">
+        <div class="back"><img src="__PUBLIC__/hotel/static/images/back.png"> 返回</div>
+        <div class="header_title">忘记密码</div>
+        <div class="index"><img src="__PUBLIC__/hotel/static/images/home.png"></div>
+      </div>
+    </div>
+	<div class="content">
+<form id="fg_form" action="{:addons_url ( 'Ucuser://Ucuser/forget',array('mp_id'=>$mp_id) )}" method="post">
+      <div class="input_box">
+          <div class="phone_box">
+            <img src="__PUBLIC__/hotel/static/images/phone.png">
+            <div>手 机 号 码:</div>
+          </div>
+          <input type="number" name="mobile" id="phone"/>
+      </div>
+      <div class="verify_box">
+          <div class="verify_title">
+            <img src="__PUBLIC__/hotel/static/images/verify.png">
+            <div>验证码:</div>
+          </div>
+          <input type="number" name="verify" id="verify"/>
+          <input type="button" class="btn_verify" value="点击获取"/>
+      </div>
+      <div class="input_box">
+          <div class="phone_box">
+            <img src="__PUBLIC__/hotel/static/images/password.png">
+            <div>新&nbsp;&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;&nbsp;码:</div>
+          </div>
+          <input type="password" name="password" id="new_psd"/>
+      </div>
+      <div class="input_box">
+          <div class="phone_box">
+            <img src="__PUBLIC__/hotel/static/images/password.png">
+            <div>确认新密码:</div>
+          </div>
+          <input type="password" name="repassword" id="renew_psd"/>
+      </div>
+	  </form>
+      <input type="button" class="btn_submit" value="确定"/>
+    </div>
+<script src="__PUBLIC__/hotel/static/js/jquery2.1.min.js"></script>
+<script src="__PUBLIC__/hotel/static/js/style.js"></script>
+<script>
+var times= 60;
+var timer= null;
+
+$('.btn_verify').click(function(){
+    if(timer){
+      clearInterval(timer);
+      timer= null;
+    }
+    timer= setInterval(function(){
+      times--;
+      if(times<=0){
+        clearInterval(timer);
+        $('.btn_verify').attr('value','点击获取').attr('disabled',false).css({'background':'#ffffff','color':'#f8b600'});
+        times= 60;
+        
+      }else{
+        $('.btn_verify').attr('value',times+'秒后重试').attr('disabled',true).css({'background':'#DDD','color':'#AAA'});
+        
+      }
+    },1000);
+  });
+
+$(".btn_verify").click(function () {
+                    var mobile = $("#phone").val();
+					if($.trim(mobile)==""){
+						alert('手机号不能为空');
+						return false;
+					}
+                    $.post("{:addons_url('Ucuser://Ucuser/sendVerify')}", {mobile:mobile}, function (res) {
+						console.log(res);
+                            alert(res);
+                    })
+                });
+
+$('.btn_submit').click(function(){
+	var mobile=$('#phone').val();
+	var verify=$('#verify').val();
+	var password=$('#new_psd').val();
+	var repassword=$('#renew_psd').val();
+	if($.trim(mobile)==""){
+		alert('手机号码不能为空');
+		return false;
+	}
+	if($.trim(verify)==""){
+		alert('请输入验证码');
+		return false;
+	}
+	if($.trim(password)==""||$.trim(repassword)==""){
+		alert('密码不能为空');
+		return false;
+	}
+	if($("#new_psd").val()==$("#renew_psd").val())
+	{
+
+	}
+	else{
+		alert("2次输入的密码不一致,请重新输入");
+	}
+});
+</script>
+</body>
+</html>
+

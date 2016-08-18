@@ -1,0 +1,13 @@
+/Conf/*
+!/Conf/index.html
+/Runtime/*
+/*.sh
+/.idea
+/Application/Install/Data/install.lock
+/Runtime
+/_runtime
+/Data
+/Uploads
+/OcApi/oc_config.php
+/updata/*
+!/updata/index.html

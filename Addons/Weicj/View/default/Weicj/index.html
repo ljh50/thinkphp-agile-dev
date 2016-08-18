@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<title>{$info.title}</title>
+		<meta charset="utf-8">
+		<meta content="" name="description">
+		<meta content="" name="keywords">
+		<meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+		<meta content="telephone=no, address=no" name="format-detection">
+		<link href="{:ADDON_PUBLIC_PATH}/css/main.css?v=4" rel="stylesheet" />
+		<script type="text/javascript">
+		(function(){
+			var phoneWidth = parseInt(window.screen.width),
+				phoneScale = phoneWidth/640,
+				ua = navigator.userAgent;
+
+			if (/Android (\d+\.\d+)/.test(ua)){
+				var version = parseFloat(RegExp.$1);
+				// andriod 2.3
+				if(version > 2.3){
+					document.write('<meta name="viewport" content="width=640, minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+', target-densitydpi=device-dpi">');
+				// andriod 2.3以上
+				}else{
+					document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+				}
+				// 其他系统
+			} else {
+				document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+			}
+		})();
+        		var config = {
+			coverUrl:'',
+			swipeCur: 0,
+			swipeDir:'vertical', // 'vertical' // horizontal
+		}
+		</script>
+		<script src="{:ADDON_PUBLIC_PATH}/js/zepto_min.js"></script>
+		<script src="{:ADDON_PUBLIC_PATH}/js/lottery.js"></script>
+		<script src="{:ADDON_PUBLIC_PATH}/js/swipe.js"></script>
+		<script src="{:ADDON_PUBLIC_PATH}/js/player.js"></script>
+		<script src="{:ADDON_PUBLIC_PATH}/js/stackBlur.js"></script>
+		<script src="{:ADDON_PUBLIC_PATH}/js/app.js"></script>
+		<if condition="is_administrator()">
+		<link rel="stylesheet" href="__AUI__/css/amazeui.min.css">
+        <link rel="stylesheet" href="__AUI__/css/app.css">
+	
+	    <!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="__AUI__/js/polyfill/rem.min.js"></script>
+<script src="__AUI__/js/polyfill/respond.min.js"></script>
+<script src="__AUI__/js/amazeui.legacy.js"></script>
+<![endif]-->
+
+<!--[if (gte IE 9)|!(IE)]><!-->
+<script src="__AUI__/js/jquery.min.js"></script>
+<script src="__AUI__/js/amazeui.js"></script>
+<!--<![endif]-->
+		</if>
+	</head>
+	<body onselectstart="return true;" ondragstart="return false;">
+		<div class="container">
+			<div class="loading-img"><img src="{:ADDON_PUBLIC_PATH}/images/loading.gif" /></div>
+
+			<div class="swipe" id="swipe">
+				<ul>
+					<notempty name="info.pic1"><li><div style="background-image: url({$info.pic1})"></div></li></notempty>
+					<notempty name="info.pic2"><li><div style="background-image: url({$info.pic2})"></div></li></notempty>
+					<notempty name="info.pic3"><li><div style="background-image: url({$info.pic3})"></div></li></notempty>
+					<notempty name="info.pic4"><li><div style="background-image: url({$info.pic4})"></div></li></notempty>
+					<notempty name="info.pic5"><li><div style="background-image: url({$info.pic5})"></div></li></notempty>
+					<li>
+						<!--带按钮的图片需加上class top/middle/bottom ，位置分别在上中下 -->
+						<div class="bottom" style="background-image: url({$info.pic6})">
+						    <a class="links"  href="{$info.cjurl}"><img src="{$info.clickpic}" /></a>
+						</div>
+					</li>
+				</ul>
+			</div>
+            <div id="musicWrap" class="music_wrap f-hide">
+				<span class="text move hide"></span>
+                <i id="audioBtn" data-src="{$info.trueaudio}" class="btn_music on"></i>
+            </div>
+            
+			<div id="arrowV" class="arrow_v f-hide"><p></p></div>
+
+			<div id="arrowH" class="arrow_h f-hide">
+				<span class="arrow_l"></span>
+				<span class="arrow_r"></span>
+			</div>
+
+			<div class="lottery" id="lottery"></div>
+			<div class="download_mask" id="downloadMask"><i></i></div>
+		</div>
+		<if condition="is_administrator()">
+                                    <!-- 超管在管理后台预览时可以看到微场景分享二维码 -->
+<div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default "
+     id="">
+  <ul class="am-navbar-nav am-cf am-avg-sm-4">
+    
+    <li data-am-navbar-qrcode>
+      <a href="###">
+        <span class="am-icon-qrcode"></span>
+        <span class="am-navbar-label">二维码</span>
+      </a>
+    </li>
+   
+  </ul>
+</div>
+        </if>
+	</body>
+</html>

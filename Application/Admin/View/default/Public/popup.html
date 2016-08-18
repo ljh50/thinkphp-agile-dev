@@ -1,0 +1,100 @@
+<block name="style">
+    <style type="text/css">
+		.ajax-form{ overflow: hidden; text-align: center;}
+		.ajax-form .form-div{ overflow: hidden; margin-bottom: 30px;}
+		.ajax-form .form-div .btn {width: 49%;}
+		.is_confirm_text{ font-size: 18px; text-align: center;}
+    </style>
+</block>
+<!-- 模态框HTML -->
+<div class="ajax-form">
+	<div class="is_confirm_box">
+		<p class="is_confirm_text">{$confirm_text|default="确认删除吗？"}</p>
+		<div class="form-input">
+			<notempty name="inputs.text">
+				<volist name="inputs.text" id="input">
+					<div class="form-div col-md-12">
+						<span class="col-md-3 text-right">{$input['name']}</span>
+						<input  type="{$input['type']}" data-key="{$input['key']}" class="col-md-6 text-left" value="{$input['value']}">
+					</div>
+				</volist>
+			</notempty>
+			<notempty name="inputs.checkbox">
+				<div class="form-div ">
+					<volist name="inputs.checkbox" id="input">
+						<label class="col-md-5 ">
+							<span class="col-md-5 text-right">{$input['name']}</span>
+							<input class="check_box  col-md-2 " type="{$input['type']}" data-key="{$input['key']}"
+								   data-id="{$input['id']}"
+							<eq name="input.value" value="1">checked</eq>>
+						</label>
+
+					</volist>
+				</div>
+			</notempty>
+		</div>
+		<div class="form-div button">
+			<input type="submit" data-role="submitreport" value="确定" class="btn btn-primary send_box submitreport">
+			<input type="button" value="取消" class="btn send_box" data-dismiss="modal">
+		</div>
+	</div>
+</div>
+<script>
+
+	$('.submitreport').on('click', function () {
+		var  data = {$data|json_encode};
+		var check_arr = {};
+		$('.form-input input').each(function()
+		{
+			var key = {};
+			switch ($(this).attr('type'))
+			{
+				case 'text':
+					key[$(this).data('key')] = $(this).val();
+
+					break;
+				case 'checkbox':
+					console.log(check_arr[$(this).data('key')]);
+
+					if(($(this).prop("checked") ==true))
+					{
+						console.log($(this).data('id'));
+						if(check_arr[$(this).data('key')] == undefined) check_arr[$(this).data('key')]=[];
+						check_arr[$(this).data('key')].push(($(this).data('id')));
+					}
+					break;
+			}
+			jQuery.extend(data, key);
+		});
+		jQuery.extend(data, check_arr);
+		console.log(data);
+
+	$.post("{$posturl}",data,function(data){
+			if (data.status == 1) {
+				if (data.url) {
+					updateAlert(data.info + ' 页面即将自动跳转~', 'success');
+				} else {
+					updateAlert(data.info, 'success');
+				}
+				setTimeout(function () {
+					if (data.url) {
+						location.href = data.url;
+					} else if ($(this).hasClass('no-refresh')) {
+						$('#top-alert').find('button').click();
+					} else {
+						location.reload();
+					}
+				}, 1000);
+			} else {
+				updateAlert(data.info);
+				setTimeout(function () {
+					if (data.url) {
+						location.href = data.url;
+					} else {
+						$('#top-alert').find('button').click();
+					}
+				}, 3000);
+			}
+		});
+	});
+</script>

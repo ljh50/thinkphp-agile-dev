@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0,  user-scalable=0;" name="viewport" />
+    <link rel="stylesheet" type="text/css" href="{:ADDON_PUBLIC_PATH}/myscore/asset/css/amazeui2.1.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="{:ADDON_PUBLIC_PATH}/myscore/asset/css/jquery.mobile-1.4.5.min.css">-->
+    <link rel="stylesheet" type="text/css" href="{:ADDON_PUBLIC_PATH}/myscore/asset/css/weui.css">
+    <link rel="stylesheet" type="text/css" href="{:ADDON_PUBLIC_PATH}/myscore/asset/css/style.css">
+    <title>UCToo 5维图</title>
+</head>
+
+<body>
+   <input type="hidden" value="{$home_url}" name="home_url" id="home_url">
+    <input type="hidden" value="{$help_url}" name="help_url" id="help_url">
+   <header><span style="float:left;margin-left:10px;padding:0px 10px;" id="to_home">个人中心</span><span id="user_name" class="margin-auto">UCToo 5维图</span><span style="float:right;margin-right:10px;padding:0px 10px;" id="to_help">帮助</span></header>
+   <article style="margin-top:20px;">
+       <p>5维图的左上角可以进入被打分人的5维图首页。5维图首页显示了被打分人的平均5维以及根据5维平均分得出的评价。右上角就是这篇你正在看的帮助了。可以把5维图转发给好友或分享到朋友圈，让别人给你打分。</p>
+       <p><img src="{:ADDON_PUBLIC_PATH}/myscore/asset/img/5homepage.jpg"></p>
+       <p>5维图的底部有打分列表，可以看到最近哪些人给被打分人打了分。点击可以查看打分的详情和留言。</p>
+       <p><img src="{:ADDON_PUBLIC_PATH}/myscore/asset/img/5homepage1.jpg"></p>
+       <p>打分详情页可以穿越到打分人的5维图首页。</p>
+       <p><img src="{:ADDON_PUBLIC_PATH}/myscore/asset/img/5detail.jpg"></p>
+       <p>5维图的底部还有全球排名列表。可以查看个人总得分在全球的排名。看到这行红字了？没错！我们正在送福利。2015年的最后时刻，全球5维总得分最高的用户，可以获得一年UCToo钻石会员资格。具体包含什么呢？1）www.uctoo.com公众号运营平台所有功能的免费使用。2）价值5万元的采用UCToo开源开发框架公众号高级定制开发服务。3）海量自媒体玩家的关注和推广！</p>
+       <p><img src="{:ADDON_PUBLIC_PATH}/myscore/asset/img/5homepage2.jpg"></p>
+       <p>打分页可以点击5维图，给别人打分，还可以写一个打分留言，别忘了提交打分哦。对了，不只是可以转发自己的5维图，任何被打分人的5维图都是可以转发的。</p>
+       <p><img src="{:ADDON_PUBLIC_PATH}/myscore/asset/img/5dafen.jpg"></p>
+       <p>还有个人中心？我才不会告诉你，帮助页的左上角可以进入个人中心哒。</p>
+       <p><img src="{:ADDON_PUBLIC_PATH}/myscore/asset/img/help.png"></p>
+       <p>更多酷炫功能请关注“优创智投”公众号。</p>
+       <p><img src="{:ADDON_PUBLIC_PATH}/myscore/asset/img/qr.jpg"></p>
+       <p>对了，我们正在参加中国好创业大赛，快来投我们一票，投票足够多的话，我们就把这个5维图游戏开源啦！</p>
+       <p><img src="{:ADDON_PUBLIC_PATH}/myscore/asset/img/chuangye.jpg"></p>
+   </article>
+    <script type="text/javascript" src="{:ADDON_PUBLIC_PATH}/myscore/asset/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="{:ADDON_PUBLIC_PATH}/myscore/asset/js/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="{:ADDON_PUBLIC_PATH}/myscore/asset/js/amazeui2.1.min.js"></script>
+    <script type="text/javascript" src="{:ADDON_PUBLIC_PATH}/myscore/asset/js/main.js"></script>
+    <script>
+      $('#to_home').on('tap',function(){
+        var home_url = $('#home_url').val();
+        window.location.href = home_url;
+      }); 
+    </script>
+</body>
+</html>

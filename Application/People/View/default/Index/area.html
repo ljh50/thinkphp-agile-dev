@@ -1,0 +1,33 @@
+<extend name="Base/common"/>
+
+<block name="style">
+    <link href="__CSS__/people.css" rel="stylesheet" type="text/css"/>
+</block>
+<block name="header">
+    <include file="Public/_nav"/>
+</block>
+
+<block name="body">
+
+    <div class="container">
+    <!--地区选择块-->
+        <include file="Public/mod_header_area"/>
+        <!--会员显示区-->
+        <div class="row">
+            <volist name="lists.data" id="vo">
+                <include file="Public/item_area"/>
+            </volist>
+        </div>
+    </div>
+
+    <if condition="$lists['count'] eq 0">
+        <div style="font-size:3em;padding:2em 0;color: #ccc;text-align: center">{:L('_NO_ONE_')}</div>
+    </if>
+
+    <div class="pull-right">
+        {$lists.html}
+    </div>
+
+    </div>
+
+</block>
