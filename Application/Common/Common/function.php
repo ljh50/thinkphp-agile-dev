@@ -1937,7 +1937,30 @@ function gettree($data,$pid = 0,$lev = 1,$array=array()){
 
 
 
+/*configbulider 的select列表数据格式
+* $param 传入对数 array
+*
+*/
+function list_select($data = array()){
+    $data = gettree($data);
+    $arr = array(
+        0 =>
+            array (
+                'id' => 0,
+                'value' => '顶级分类',
+            ),
+    );
+    foreach ($data as $v ){
+        $value = c_space($v);
+        $array =array(
+            'id' => $v['id'],
+            'value' => $value.$v['title'],
+        );
+        $arr[]= $array;
+    }
 
+    return $arr;
+}
 
 
 /*configbulider 的select列表数据格式
