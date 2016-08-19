@@ -1987,3 +1987,6 @@ function get_userinfo_byuid($uid){
     return $data;
 
 }
+
+
+function test(){}
