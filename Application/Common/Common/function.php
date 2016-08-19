@@ -2012,4 +2012,3 @@ function get_userinfo_byuid($uid){
 }
 
 
-function test(){}
