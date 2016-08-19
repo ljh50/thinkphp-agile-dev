@@ -1891,3 +1891,122 @@ function get_all_module_lang($common_lang = array())
             // dump(M()->getLastSql());
         }
     }
+
+
+
+//log
+function wlog($res_data,$logex=null,$error=0,$where =''){
+    ini_set('date.timezone','Asia/Shanghai');
+    switch($error){
+        case 1:
+            $path = APP_PATH.'error.txt';
+            break;
+        default:
+            $path = APP_PATH.'tok.txt';
+            break;
+
+    }
+    $fh = fopen(APP_PATH.'tok.txt','a+');
+    fwrite($fh,'日志：'.$logex.("\r\n"));
+    fwrite($fh,'开始：'.date('ymd-H:i:s',time()).("\r\n"));
+    fwrite($fh,$where.("\r\n"));
+    fwrite($fh,var_export($res_data,true).("\r\n"));
+    fwrite($fh,'结束：'.date('ymd-H:i:s').("\r\n"));
+    fwrite($fh,"\r\n");
+    fclose($fh);
+}
+
+/*获取无限级分类树
+ *
+ *
+ *
+ * */
+function gettree($data,$pid = 0,$lev = 1,$array=array()){
+
+    foreach($data as &$v){
+        if($v['pid'] == $pid){
+            $v['lev'] = $lev;
+            $array[] = $v;
+            $i = $lev+1;
+            $array = gettree($data,$v['id'],$i,$array);
+        }
+
+    }
+    return $array;
+}
+
+
+
+/*configbulider 的select列表数据格式
+* $param 传入对数 array
+*
+*/
+function list_select($data = array()){
+    $data = gettree($data);
+    $arr = array(
+        0 =>
+            array (
+                'id' => 0,
+                'value' => '顶级分类',
+            ),
+    );
+    foreach ($data as $v ){
+        $value = c_space($v);
+        $array =array(
+            'id' => $v['id'],
+            'value' => $value.$v['title'],
+        );
+        $arr[]= $array;
+    }
+
+    return $arr;
+}
+
+
+/*configbulider 的select列表数据格式
+* $param 传入对数 array
+*
+*/
+function config_select($data = null ){
+    $data = gettree($data);
+    $arr = array(0 => '顶级分类',);
+    foreach ($data as $v ){
+        $value = c_space($v);
+        $arr[$v['id']]= $value.$v['title'];
+    }
+
+    return $arr;
+}
+//创建空格.'└';
+function c_space($v){
+    $space = '-';
+    $c_space = null;
+    for($i = 1;$i<=intval($v['lev']);$i++){
+        $c_space.=$space;
+    }
+    return $c_space.'└';
+}
+
+
+//获取文件路径
+function get_file_path($id = null){
+    if(!$id){
+        return false;
+    }
+    $model = M('file');
+    $path = $model ->where("id = $id")->find();
+    if(!$path){
+        return ($id.'没有找到');
+    }
+
+    return "http://".$_SERVER ['HTTP_HOST'].$path['savepath'].$path['savename'];
+}
+
+//根据uid获取用户信息；
+function get_userinfo_byuid($uid){
+    $model = D('ucuser');
+    $where['uid']=$uid;
+    $data = $model->where($where)->find();
+    return $data;
+
+}
