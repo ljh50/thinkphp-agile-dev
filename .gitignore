@@ -11,3 +11,4 @@
 /OcApi/oc_config.php
 /updata/*
 !/updata/index.html
+/vendor

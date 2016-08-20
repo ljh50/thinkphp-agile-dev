@@ -75,6 +75,8 @@ if (!is_file( 'Conf/user.php')) {
  */
 define ('RUNTIME_PATH', './Runtime/');
 
+require './vendor/autoload.php';
+
 /**
  * 引入核心入口
  * ThinkPHP亦可移动到WEB以外的目录
