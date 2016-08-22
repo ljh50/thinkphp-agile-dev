@@ -18,7 +18,15 @@ use Com\Wxpay\lib\WxPayApi;
  */
 class WxPayNotifyReply extends  WxPayDataBase
 {
+    //微信支付配置参数，类初始化必填
+    public $wxpaycfg;
+    public $wxpayapi;
 
+    //构造函数，初始化的时候最先执行
+    public function __construct($wxpaycfg) {
+        $this->wxpaycfg = $wxpaycfg;
+        $this->wxpayapi = new WxPayApi($wxpaycfg);
+    }
 	/**
 	 * 
 	 * 设置错误码 FAIL 或者 SUCCESS

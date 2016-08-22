@@ -24,38 +24,20 @@ class WxPayConfig
 	 * 获取地址：https://mp.weixin.qq.com/advanced/advanced?action=dev&t=advanced/dev&token=2005451881&lang=zh_CN
 	 * @var string
 	 */
-//     public $appid = '';
-//     public $mchid = '';
-//     public $mchkey = '';
-//     public $appsecret = '';
-//     public $notify_url = '';
-//
-//    public function __construct($options){
-//        $this->appid = $options['appid'];
-//        $this->mchid = $options['mchid'];
-//        $this->mchkey = $options['mchkey'];
-//        $this->appsecret = $options['secret'];
-//        $this->notify_url = $options['notify_url'];
-//    }
-	protected static $cfg = array(
-		'APPID'     => '',
-		'MCHID'     => '',
-		'KEY'       => '',
-		'APPSECRET' => '',
-		'NOTIFY_URL' => '',
-		'SSLCERT_PATH' => '../cert/apiclient_cert.pem',
-		'SSLKEY_PATH'  => '../cert/apiclient_key.pem',
-		'REPORT_LEVENL' => 1,
-		'CURL_PROXY_HOST' => '0.0.0.0',
-		'CURL_PROXY_PORT' => 0,
-	);
-	public static function getConfig($field = '') {
-		return $field ? self::$cfg[$field] : self::$cfg;
+     public $appid = '';
+     public $mchid = '';
+     public $mchkey = '';
+     public $appsecret = '';
+     public $notify_url = '';
+
+    public function __construct($options){
+        $this->appid = $options['appid'];
+        $this->mchid = $options['mchid'];
+        $this->mchkey = $options['mchkey'];
+        $this->appsecret = $options['secret'];
+        $this->notify_url = $options['notify_url'];
     }
 
-	public static function setConfig($c) {
-		self::$cfg = array_merge(self::$cfg, $c);
-	}
 	//=======【证书路径设置】=====================================
 	/**
 	 * TODO：设置商户证书路径
@@ -63,8 +45,8 @@ class WxPayConfig
 	 * API证书下载地址：https://pay.weixin.qq.com/index.php/account/api_cert，下载之前需要安装商户操作证书）
 	 * @var path
 	 */
-//	const SSLCERT_PATH = ;
-//	const SSLKEY_PATH = '../cert/apiclient_key.pem';
+	const SSLCERT_PATH = '../cert/apiclient_cert.pem';
+	const SSLKEY_PATH = '../cert/apiclient_key.pem';
 	
 	//=======【curl代理设置】===================================
 	/**
@@ -73,8 +55,8 @@ class WxPayConfig
 	 * 默认CURL_PROXY_HOST=0.0.0.0和CURL_PROXY_PORT=0，此时不开启代理（如有需要才设置）
 	 * @var unknown_type
 	 */
-//	const CURL_PROXY_HOST = "0.0.0.0";//"10.152.18.220";
-//	const CURL_PROXY_PORT = 0;//8080;
+	const CURL_PROXY_HOST = "0.0.0.0";//"10.152.18.220";
+	const CURL_PROXY_PORT = 0;//8080;
 	
 	//=======【上报信息配置】===================================
 	/**
@@ -84,5 +66,5 @@ class WxPayConfig
 	 * 上报等级，0.关闭上报; 1.仅错误出错上报; 2.全量上报
 	 * @var int
 	 */
-//	const REPORT_LEVENL = 1;
+	const REPORT_LEVENL = 1;
 }

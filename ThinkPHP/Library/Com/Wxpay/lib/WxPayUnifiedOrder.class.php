@@ -257,6 +257,7 @@ class WxPayUnifiedOrder extends WxPayDataBase
     public function SetTotal_fee($value)
     {
         $this->values['total_fee'] = $value;
+
     }
     /**
      * 获取订单总金额，只能为整数，详见支付金额的值

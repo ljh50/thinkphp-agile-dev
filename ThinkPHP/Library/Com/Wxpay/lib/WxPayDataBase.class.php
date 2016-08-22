@@ -20,6 +20,13 @@ class WxPayDataBase
 {
 	protected $values = array();
 
+    //微信支付配置参数，类初始化必填
+    public $wxpaycfg;
+
+    //构造函数，初始化的时候最先执行
+    public function __construct($wxpaycfg) {
+        $this->wxpaycfg = $wxpaycfg;
+    }
 	/**
 	* 设置签名，详见签名生成算法
 	* @param string $value 
@@ -118,7 +125,7 @@ class WxPayDataBase
 		ksort($this->values);
 		$string = $this->ToUrlParams();
 		//签名步骤二：在string后加入KEY
-		$string = $string . "&key=".WxPayConfig::getConfig('KEY');
+		$string = $string . "&key=".$this->wxpaycfg->mchkey;
 		//签名步骤三：MD5加密
 		$string = md5($string);
 		//签名步骤四：所有字符转为大写

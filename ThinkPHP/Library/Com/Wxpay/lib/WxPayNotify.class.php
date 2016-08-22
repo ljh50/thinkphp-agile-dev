@@ -20,7 +20,7 @@ class WxPayNotify extends WxPayNotifyReply
 	{
 		$msg = "OK";
 		//当返回false的时候，表示notify中调用NotifyCallBack回调失败获取签名校验失败，此时直接回复失败
-		$result = WxPayApi::notify(array($this, 'NotifyCallBack'), $msg);
+		$result = $this->wxpayapi->notify(array($this, 'NotifyCallBack'), $msg);
 		if($result == false){
 			$this->SetReturn_code("FAIL");
 			$this->SetReturn_msg($msg);
@@ -84,6 +84,6 @@ class WxPayNotify extends WxPayNotifyReply
 		{
 			$this->SetSign();
 		}
-		WxPayApi::replyNotify($this->ToXml());
+        $this->wxpayapi->replyNotify($this->ToXml());
 	}
 }

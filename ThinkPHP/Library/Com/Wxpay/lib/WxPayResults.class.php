@@ -53,7 +53,7 @@ class WxPayResults extends WxPayDataBase
 	 */
 	public function InitFromArray($array, $noCheckSign = false)
 	{
-		$obj = new self();
+		$obj = new self($this->wxpaycfg);
 		$obj->FromArray($array);
 		if($noCheckSign == false){
 			$obj->CheckSign();
@@ -79,7 +79,7 @@ class WxPayResults extends WxPayDataBase
      */
 	public function Init($xml)
 	{	
-		$obj = new self();
+		$obj = new self($this->wxpaycfg);
 		$obj->FromXml($xml);
 		//fix bug 2015-06-29
 		if($obj->values['return_code'] != 'SUCCESS'){

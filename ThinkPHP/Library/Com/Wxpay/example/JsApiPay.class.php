@@ -40,7 +40,14 @@ class JsApiPay
     //=======【curl超时设置】===================================
     //本例程通过curl使用HTTP POST方法，此处可修改其超时时间，默认为30秒
     public  $CURL_TIMEOUT = 30;
-	
+
+    //微信支付配置参数，类初始化必填
+    public $wxpaycfg;
+
+    //构造函数，初始化的时候最先执行
+    public function __construct($wxpaycfg) {
+        $this->wxpaycfg = $wxpaycfg;
+    }
 
 	/**
 	 * 
@@ -82,9 +89,9 @@ class JsApiPay
 		|| !array_key_exists("prepay_id", $UnifiedOrderResult)
 		|| $UnifiedOrderResult['prepay_id'] == "")
 		{
-			throw new WxPayException(empty($UnifiedOrderResult['err_code_des'])?"参数错误":$UnifiedOrderResult['err_code_des']);
+			throw new WxPayException("参数错误");
 		}
-		$jsapi = new WxPayJsApiPay();
+		$jsapi = new WxPayJsApiPay($this->wxpaycfg);
 		$jsapi->SetAppid($UnifiedOrderResult["appid"]);
 		$timeStamp = time();
 		$jsapi->SetTimeStamp("$timeStamp");
@@ -161,7 +168,7 @@ class JsApiPay
 	{	
 		$getData = $this->data;
 		$data = array();
-		$data["appid"] = WxPayConfig::getConfig('APPID');
+		$data["appid"] = $this->wxpaycfg->appid;
 		$data["url"] = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		$time = time();
 		$data["timestamp"] = "$time";
@@ -175,7 +182,7 @@ class JsApiPay
 			"addrSign" => $addrSign,
 			"signType" => "sha1",
 			"scope" => "jsapi_address",
-			"appId" => WxPayConfig::getConfig('APPID'),
+			"appId" => $this->wxpaycfg->appid,
 			"timeStamp" => $data["timestamp"],
 			"nonceStr" => $data["noncestr"]
 		);
@@ -192,7 +199,7 @@ class JsApiPay
 	 */
 	private function __CreateOauthUrlForCode($redirectUrl)
 	{
-		$urlObj["appid"] = WxPayConfig::getConfig('APPID');
+		$urlObj["appid"] = $this->wxpaycfg->appid;
 		$urlObj["redirect_uri"] = "$redirectUrl";
 		$urlObj["response_type"] = "code";
 		$urlObj["scope"] = "snsapi_base";
@@ -210,8 +217,8 @@ class JsApiPay
 	 */
 	private function __CreateOauthUrlForOpenid($code)
 	{
-		$urlObj["appid"] = WxPayConfig::getConfig('APPID');
-		$urlObj["secret"] = WxPayConfig::getConfig('APPSECRET');
+		$urlObj["appid"] = $this->wxpaycfg->appid;
+		$urlObj["secret"] = $this->wxpaycfg->appsecret;
 		$urlObj["code"] = $code;
 		$urlObj["grant_type"] = "authorization_code";
 		$bizString = $this->ToUrlParams($urlObj);
