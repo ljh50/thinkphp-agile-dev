@@ -49,7 +49,7 @@ var toast = {
      * @param text
      */
     showLoading: function () {
-        $('body').append('<div class="big_loading"><img src="' + ThinkPHP.PUBLIC + '/images/big_loading.gif"/></div>');
+        $('body').append('<div class="big_loading" style="position: fixed; z-index: 1000; top:50%;  left:50%; transform:translate(-50%,-50%);"><img src="' + ThinkPHP.PUBLIC + '/images/big_loading.gif"/></div>');
     },
     /**
      * 隐藏loading
