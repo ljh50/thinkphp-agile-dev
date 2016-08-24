@@ -12,3 +12,5 @@
 /updata/*
 !/updata/index.html
 /vendor
+/Data/*
+/Uploads/*
