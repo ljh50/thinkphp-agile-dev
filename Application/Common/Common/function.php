@@ -2012,3 +2012,26 @@ function get_userinfo_byuid($uid){
 }
 
 
+
+function ToXml($data)
+{
+    if(!is_array($data)
+        || count($data) <= 0)
+    {
+        return false;
+    }
+
+    $xml = "<xml>";
+    foreach ($data as $key=>$val)
+    {
+        if (is_numeric($val)){
+            $xml.="<".$key.">".$val."</".$key.">";
+        }else{
+            $xml.="<".$key."><![CDATA[".$val."]]></".$key.">";
+        }
+    }
+    $xml.="</xml>";
+    return $xml;
+}
+
+
