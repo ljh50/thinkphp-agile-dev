@@ -114,7 +114,7 @@ function get_openid($openid = NULL) {
     if (empty ( $openid )) {
         return 0;
     }
-
+    get_ucuser_mid();//自动添加用户;
     return $openid;
 }
 
