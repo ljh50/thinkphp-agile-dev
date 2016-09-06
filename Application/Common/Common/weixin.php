@@ -302,3 +302,11 @@ function mpid_md5($str, $key = '')
     trace($str,'TplMsg2:','DEBUG',true);
     return '' === $str ? '' : md5(sha1($str) . $key);
 }
+
+/*
+ * 引入微信jsdk函数，
+ * 便于入口添加，解决微信授权问题
+ * */
+function weixinjsapi(){
+    require_once 'weixinjsdk.php';
+}
