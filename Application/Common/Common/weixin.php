@@ -176,7 +176,8 @@ function get_mpid($mp_id = NULL) {
 //根据mid获取粉丝用户信息
 function get_mid_ucuser($mid = 0) {
   $model = D('Ucuser');
-  $user = $model->find($mid);
+    $where['mid']=$mid;
+  $user = $model->where($where)->find();
   return $user;
 }
 
